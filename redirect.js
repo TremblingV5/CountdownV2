@@ -1,5 +1,5 @@
 // 重定向函数 - 兼容HTTP服务器和Chrome扩展环境
-import { checkRedirectCondition } from './timeUtils.js';
+// 通过全局命名空间访问timeUtils中的函数
 
 function checkRedirect() {
   console.log('Redirect.js: 脚本开始执行 - 检查重定向条件');
@@ -21,7 +21,7 @@ function checkRedirect() {
       console.log('Redirect.js: Chrome扩展环境 overtimeStatus =', overtimeStatus);
       
       // 使用统一的方法检查重定向条件
-      const redirectInfo = checkRedirectCondition(overtimeStatus);
+      const redirectInfo = window.checkRedirectCondition ? window.checkRedirectCondition(overtimeStatus) : { shouldRedirect: false, message: '函数未加载' };
       console.log('Redirect.js: 重定向检查结果 =', redirectInfo);
       
       // 当需要重定向时执行重定向
@@ -42,7 +42,7 @@ function checkRedirect() {
     console.log('Redirect.js: HTTP服务器环境 overtimeStatus =', overtimeStatus);
     
     // 使用统一的方法检查重定向条件
-    const redirectInfo = checkRedirectCondition(overtimeStatus === 'true');
+    const redirectInfo = window.checkRedirectCondition ? window.checkRedirectCondition(overtimeStatus === 'true') : { shouldRedirect: false, message: '函数未加载' };
     console.log('Redirect.js: 重定向检查结果 =', redirectInfo);
     
     // 当需要重定向时执行重定向

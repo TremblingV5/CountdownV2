@@ -1,5 +1,5 @@
 // 共用的倒计时核心逻辑
-import { checkWorkingTime, getCurrentDateTime } from './timeUtils.js';
+// 通过全局命名空间访问timeUtils中的函数
 
 var hourtime = "18:00:00"; // 默认值
 
@@ -25,15 +25,15 @@ function initHourtime() {
 initHourtime();
 
 // 核心显示时间函数
-export function displayTime() {
+function displayTime() {
     var elt = document.getElementById("clock");
     var elt2 = document.getElementById("todaydatetime");
     
     // 使用统一的方法检查上班时间和获取文案
-    const workingTimeInfo = checkWorkingTime(hourtime);
+    const workingTimeInfo = window.checkWorkingTime ? window.checkWorkingTime(hourtime) : { message: '函数未加载', leftSeconds: 0 };
     
     // 显示当前日期和时间
-    elt2.innerHTML = getCurrentDateTime();
+    elt2.innerHTML = window.getCurrentDateTime ? window.getCurrentDateTime() : '时间函数未加载';
     
     // 显示倒计时或提示文案
     elt.innerHTML = workingTimeInfo.message;
@@ -42,11 +42,18 @@ export function displayTime() {
 }
 
 // 更新hourtime变量（从popup.js调用）
-export function updateHourtime(newTime) {
+function updateHourtime(newTime) {
     hourtime = newTime;
 }
 
 // 获取当前hourtime（供countdown.js使用）
-export function getCurrentHourtime() {
+function getCurrentHourtime() {
     return hourtime;
+}
+
+// 将函数暴露到全局命名空间，供其他脚本使用
+if (typeof window !== 'undefined') {
+    window.displayTime = displayTime;
+    window.updateHourtime = updateHourtime;
+    window.getCurrentHourtime = getCurrentHourtime;
 }

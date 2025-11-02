@@ -1,5 +1,4 @@
-// 导入共用的倒计时逻辑
-import { displayTime, updateHourtime } from './common.js';
+// 通过全局命名空间访问共用的倒计时逻辑
 
 // 页面加载时直接初始化时间选择器
 window.addEventListener('DOMContentLoaded', function() {
@@ -7,7 +6,7 @@ window.addEventListener('DOMContentLoaded', function() {
     
     // 定时更新，保存定时器ID以便后续清除
     function startDisplay() {
-        displayTime();
+        window.displayTime ? window.displayTime() : console.log('displayTime函数未加载');
         window.timeoutId = setTimeout(startDisplay, 1000);
     }
     startDisplay();
@@ -124,7 +123,7 @@ function saveTime() {
         // Chrome扩展环境
         chrome.storage.local.set({"hourtime": timeString}, function() {
             // 更新共用模块中的时间变量
-            updateHourtime(timeString);
+            window.updateHourtime ? window.updateHourtime(timeString) : console.log('updateHourtime函数未加载');
             
             // 清除可能存在的旧定时器，避免多个定时器同时运行
             if (window.timeoutId) {
@@ -132,7 +131,7 @@ function saveTime() {
             }
             
             // 立即刷新显示
-            displayTime();
+            window.displayTime ? window.displayTime() : console.log('displayTime函数未加载');
             
             // 显示成功提示
             showSuccessMessage('保存成功');
@@ -141,7 +140,7 @@ function saveTime() {
         // HTTP服务器环境
         localStorage.setItem("hourtime", timeString);
         // 更新共用模块中的时间变量
-        updateHourtime(timeString);
+        window.updateHourtime ? window.updateHourtime(timeString) : console.log('updateHourtime函数未加载');
         
         // 清除可能存在的旧定时器，避免多个定时器同时运行
         if (window.timeoutId) {
@@ -149,7 +148,7 @@ function saveTime() {
         }
         
         // 立即刷新显示
-        displayTime();
+        window.displayTime ? window.displayTime() : console.log('displayTime函数未加载');
         
         // 显示成功提示
         showSuccessMessage('保存成功');

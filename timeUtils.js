@@ -25,7 +25,7 @@ function get_day(a) {
 
 // 检查当前是否是上班时间
 // 返回对象包含：isWorkingTime(是否上班时间), message(文案), holiday(节假日名称), isWeekend(是否周末)
-export function checkWorkingTime(hourtime = "18:00:00") {
+function checkWorkingTime(hourtime = "18:00:00") {
     const now = new Date();
     const day = now.getDay(); // 0=周日, 1=周一, ..., 6=周六
     const nowTimestamp = new Date().getTime() / 1000;
@@ -78,7 +78,7 @@ export function checkWorkingTime(hourtime = "18:00:00") {
 
 // 检查是否需要重定向（用于redirect.js）
 // 返回对象包含：shouldRedirect(是否需要重定向), message(文案), isWorkingTime(是否上班时间)
-export function checkRedirectCondition(overtimeStatus = false) {
+function checkRedirectCondition(overtimeStatus = false) {
     const workingTimeInfo = checkWorkingTime();
     
     // 只有在非上班时间且加班开关关闭时才需要重定向
@@ -94,7 +94,7 @@ export function checkRedirectCondition(overtimeStatus = false) {
 }
 
 // 获取当前日期时间格式化字符串
-export function getCurrentDateTime() {
+function getCurrentDateTime() {
     const now = new Date();
     const nowYear = now.getFullYear();
     const nowMonth = now.getMonth() + 1;
@@ -104,4 +104,11 @@ export function getCurrentDateTime() {
     const nowSecond = now.getSeconds();
     
     return `${nowYear} 年 ${nowMonth} 月 ${nowDay} 日 ${nowHour < 10 ? '0' + nowHour : nowHour}:${nowMinute < 10 ? '0' + nowMinute : nowMinute}:${nowSecond < 10 ? '0' + nowSecond : nowSecond}`;
+}
+
+// 将函数暴露到全局命名空间，供其他脚本使用
+if (typeof window !== 'undefined') {
+    window.checkRedirectCondition = checkRedirectCondition;
+    window.checkWorkingTime = checkWorkingTime;
+    window.getCurrentDateTime = getCurrentDateTime;
 }
