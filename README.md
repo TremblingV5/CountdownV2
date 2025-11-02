@@ -40,7 +40,7 @@ CountdownV2/
 ├── styles.css         # 样式文件
 ├── popup.js           # 核心逻辑
 └── images/            # 图标文件夹
-    ├── icon16.svg     # 16x16图标
-    ├── icon48.svg     # 48x48图标
-    └── icon128.svg    # 128x128图标
+    ├── icon16.png     # 16x16图标
+    ├── icon48.png     # 48x48图标
+    └── icon128.png    # 128x128图标
 ```
