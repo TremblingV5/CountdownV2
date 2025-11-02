@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 15px;
+  width: 350px;
+  background-color: #f8f9fa;
+}
+
+.container {
+  width: 100%;
+}
+
+.demo {
+  width: 100%;
+}
+
+/* Alert styles */
+.alert {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  font-weight: bold;
+}
+
+/* 标题样式 */
+h1 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+/* 时钟显示样式 */
+#clock {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#todaydatetime {
+  font-size: 16px;
+}
+
+/* 设置时间按钮 */
+.set-time-btn {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.set-time-btn:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}

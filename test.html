@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重定向测试页面</title>
+    <script>
+        // 立即执行重定向，不等待页面加载完成
+        console.log('测试页面：立即执行重定向');
+        
+        // 使用meta标签重定向作为第一选择
+        document.write('<meta http-equiv="refresh" content="0;url=countdown.html">');
+        
+        // 同时使用JavaScript重定向作为备用
+        setTimeout(() => {
+            console.log('测试页面：JavaScript重定向执行');
+            window.location.href = 'countdown.html';
+        }, 10);
+        
+        // 最终保障
+        setTimeout(() => {
+            if (!window.location.href.includes('countdown.html')) {
+                console.log('测试页面：最终重定向保障');
+                window.location.replace('countdown.html');
+            }
+        }, 100);
+    </script>
+</head>
+<body>
+    <h1>重定向测试页面</h1>
+    <p>如果重定向功能正常工作，这个页面应该会自动跳转到countdown.html</p>
+    <p>如果看到这个页面，说明重定向没有生效。</p>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>倒计时 - 你要下班了！</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* 直接显示的时间输入容器样式 */
+    .time-input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .time-content-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+    }
+    
+    .time-left-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .time-selectors {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .time-selector {
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      text-align: center;
+      width: 50px;
+    }
+    
+    .time-separator {
+      font-size: 20px;
+      font-weight: bold;
+      color: #666;
+    }
+    
+    .time-confirm-action {
+      display: flex;
+    }
+    
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+    
+    .btn-primary {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #45a049;
+    }
+    
+    /* 按钮下方的成功提示样式 */
+    .success-message {
+      color: #4CAF50;
+      font-size: 14px;
+      min-height: 20px;
+      margin-top: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .success-message.show {
+      opacity: 1;
+    }
+    
+    /* 开关样式 */
+    .switch-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .switch-label {
+      font-size: 14px;
+      color: #333;
+      white-space: nowrap;
+    }
+    
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: #f44336;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="demo">
+      <center>
+        <h1 class="alert alert-success">又是忙碌的一天，请按时下班~~</h1>
+        <div class="alert alert-success">
+          <span id="todaydatetime"></span>
+        </div>
+        <div class="alert alert-danger">
+          <span id="clock"></span>
+        </div>
+        <!-- 直接显示时间输入框和确认按钮 -->
+        <div class="time-input-container">
+          <div class="time-content-wrapper">
+            <div class="time-left-section">
+              <div class="time-selectors">
+                <select id="hourSelector" class="time-selector"></select>
+                <span class="time-separator">:</span>
+                <select id="minuteSelector" class="time-selector"></select>
+              </div>
+              <div class="time-confirm-action">
+                <button id="saveTimeBtn" class="btn btn-primary">自定义下班时间</button>
+              </div>
+            </div>
+            <!-- 右侧加班开关 -->
+            <div class="switch-container">
+              <span class="switch-label">算了我还是加会儿班</span>
+              <label class="switch">
+                <input type="checkbox" id="overtimeSwitch">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <!-- 按钮下方的成功提示 -->
+          <div id="successMessage" class="success-message"></div>
+        </div>
+      </center>
+    </div>
+  </div>
+  
+
+  
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
