@@ -29,8 +29,27 @@ function displayTime() {
     var elt = document.getElementById("clock");
     var elt2 = document.getElementById("todaydatetime");
     
+    // 每次调用都从localStorage获取最新的时间设置
+    var currentHourtime = hourtime; // 使用全局变量作为默认值
+    
+    // 优先从localStorage获取最新设置
+    if (typeof chrome !== 'undefined' && chrome.storage) {
+        // Chrome扩展环境 - 同步获取（可能会有延迟，但比异步好）
+        chrome.storage.local.get(['hourtime'], function(result) {
+            if (result.hourtime) {
+                currentHourtime = result.hourtime;
+            }
+        });
+    } else {
+        // HTTP服务器环境
+        var saved = localStorage.getItem("hourtime");
+        if (saved != null) {
+            currentHourtime = saved;
+        }
+    }
+    
     // 使用统一的方法检查上班时间和获取文案
-    const workingTimeInfo = window.checkWorkingTime ? window.checkWorkingTime(hourtime) : { message: '函数未加载', leftSeconds: 0 };
+    const workingTimeInfo = window.checkWorkingTime ? window.checkWorkingTime(currentHourtime) : { message: '函数未加载', leftSeconds: 0 };
     
     // 显示当前日期和时间
     elt2.innerHTML = window.getCurrentDateTime ? window.getCurrentDateTime() : '时间函数未加载';
